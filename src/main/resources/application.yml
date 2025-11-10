@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: demo
+  datasource:
+#    url: jdbc:postgresql://localhost:5432/demo
+#    username: postgres
+#    password: admin
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+    platform: h2
+    initialization-mode: always
+  sql:
+    init:
+      mode: always
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.H2Dialect
+
+jwt:
+  secret: 8w9eK7sVh3FQ2mJ6lP0rXyZtN1bQ4uDkFvHsT2cW+Eo=
+  expiration-ms: 3600000
