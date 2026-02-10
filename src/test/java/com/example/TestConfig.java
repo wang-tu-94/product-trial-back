@@ -1,6 +1,7 @@
 package com.example;
 
 import com.example.auth.repository.AccountRepository;
+import com.example.auth.repository.ServiceAccountRepository;
 import com.example.demo.repository.CartItemRepository;
 import com.example.demo.repository.CartRepository;
 import com.example.demo.repository.ProductRepository;
@@ -15,6 +16,10 @@ public class TestConfig {
     @Bean
     @Primary
     public AccountRepository accountRepository() { return Mockito.mock(AccountRepository.class); }
+
+    @Bean
+    @Primary
+    public ServiceAccountRepository serviceAccountRepository() { return Mockito.mock(ServiceAccountRepository.class); }
 
     @Bean
     @Primary

@@ -21,8 +21,6 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    private static final String ADMIN_EMAIL = "admin@admin.com";
-
     @GetMapping("/{id}")
     ResponseEntity<ProductDto> getProductById(@PathVariable Long id) {
         return ResponseEntity.ok(productService.getProductById(id));
@@ -35,26 +33,17 @@ public class ProductController {
 
     @PostMapping
     ResponseEntity<ProductDto> createProduct(@RequestBody @Validated(Create.class) ProductDto productDto, Authentication authentication) {
-        checkAdmin(authentication);
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.createProduct(productDto));
     }
 
     @PutMapping("/{id}")
     ResponseEntity<ProductDto> updateProduct(@PathVariable Long id, @RequestBody @Validated(Update.class) ProductDto productDto, Authentication authentication) {
-        checkAdmin(authentication);
         return ResponseEntity.ok(productService.updateProduct(id, productDto));
     }
 
     @DeleteMapping("/{id}")
     ResponseEntity<Void> deleteProduct(@PathVariable Long id, Authentication authentication) {
-        checkAdmin(authentication);
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
-    }
-
-    private void checkAdmin(Authentication authentication) {
-        if (authentication == null || !ADMIN_EMAIL.equals(authentication.getName())) {
-            throw new ForbiddenException("Accès refusé : uniquement admin");
-        }
     }
 }

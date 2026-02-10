@@ -30,5 +30,5 @@ INSERT INTO products (id, code, name, description, image, price, quantity, categ
   (1028, 'tx125ck42', 'Yoga Mat', 'Product Description', 'yoga-mat.jpg', 20, 149, 'Fitness', '2024-06-11', '2024-06-11', 15, 'REF-123-456', 'INSTOCK', 5),
   (1029, 'gwuby345v', 'Yoga Set', 'Product Description', 'yoga-set.jpg', 20, 143, 'Fitness', '2024-06-11', '2024-06-11', 15, 'REF-123-456', 'INSTOCK', 8);
 
-INSERT INTO accounts (id, username, email, password, created_at, updated_at) VALUES
-    (1, 'service_account', 'service@email.fr', '$2a$10$bz4x84bIN/XGYjWXvAyR8Oo04l7vrjGmjysKIJSuxM3D88Ltpo5Zm', '2024-06-11',  '2024-06-11');
+INSERT INTO service_accounts (id, client_name, api_key_hashed, created_at, last_used_at, is_active) VALUES
+    (1, 'service_account', '$2a$10$svTKVN3cniAgZNsxgvkgjebnqQggYzs655GGJ0HxyJBy/yq3KlLk.', '2024-06-11',  '2024-06-11', true);

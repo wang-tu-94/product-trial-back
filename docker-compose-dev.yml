@@ -37,10 +37,12 @@ services:
       - DB_NAME=product_db
       - DB_USER=user
       - DB_PASSWORD=password
+      - GRADLE_USER_HOME=/cache/.gradle
     volumes:
       - .:/app
-      - ~/.gradle:/home/gradle/.gradle
+      - gradle-cache:/cache/.gradle
 
 # --- Volumes pour la persistance ---
 volumes:
   postgres_data:
+  gradle-cache:

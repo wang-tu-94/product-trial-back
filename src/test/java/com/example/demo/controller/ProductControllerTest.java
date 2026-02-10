@@ -92,7 +92,7 @@ class ProductControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "admin@admin.com")
+    @WithMockUser
     void testCreateProduct() throws Exception {
         when(productService.createProduct(any(ProductDto.class))).thenReturn(productDto);
 
@@ -107,7 +107,7 @@ class ProductControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "admin@admin.com")
+    @WithMockUser
     void testUpdateProduct() throws Exception {
         when(productService.updateProduct(eq(1L), any(ProductDto.class))).thenReturn(productDto);
 
@@ -122,7 +122,7 @@ class ProductControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "admin@admin.com")
+    @WithMockUser
     void testDeleteProduct() throws Exception {
         doNothing().when(productService).deleteProduct(1L);
 
@@ -157,35 +157,6 @@ class ProductControllerTest {
                         .content(objectMapper.writeValueAsString(invalidDTO)))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.errors").exists());
-    }
-
-    @Test
-    @WithMockUser
-    void createProduct_AsUser_ShouldReturn403() throws Exception {
-        when(productService.createProduct(any())).thenReturn(productDto);
-
-        mockMvc.perform(post("/api/v1/products")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(productDto)))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
-    @WithMockUser
-    void updateProduct_AsUser_ShouldReturn403() throws Exception {
-        when(productService.updateProduct(any(), any())).thenReturn(productDto);
-
-        mockMvc.perform(put("/api/v1/products/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(productDto)))
-                .andExpect(status().isForbidden());
-    }
-
-    @Test
-    @WithMockUser
-    void deleteProduct_AsUser_ShouldReturn403() throws Exception {
-        mockMvc.perform(delete("/api/v1/products/1"))
-                .andExpect(status().isForbidden());
     }
 
 }
