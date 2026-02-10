@@ -1,8 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.config.JwtAuthenticationFilter;
-import com.example.demo.config.JwtConfig;
-import com.example.demo.config.SecurityConfig;
+import com.example.TestConfig;
+import com.example.auth.config.JwtConfig;
 import com.example.demo.dto.WishListDto;
 import com.example.demo.service.WishListService;
 import com.example.demo.exception.NotFoundException;
@@ -10,30 +9,29 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Set;
 
 import static org.mockito.Mockito.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(WishListController.class)
-@Import({SecurityConfig.class, JwtAuthenticationFilter.class})
+@Import({TestConfig.class})
 @WithMockUser
 class WishListControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     private WishListService wishListService;
 
-    @MockBean
+    @MockitoBean
     private JwtConfig jwtConfig;
 
     private WishListDto wishlistDto;

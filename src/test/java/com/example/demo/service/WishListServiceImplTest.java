@@ -1,9 +1,10 @@
 package com.example.demo.service;
 
+import com.example.auth.service.CurrentUserService;
 import com.example.demo.dto.WishListDto;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.mapper.WishListMapper;
-import com.example.demo.model.Account;
+import com.example.auth.model.Account;
 import com.example.demo.model.Product;
 import com.example.demo.model.WishList;
 import com.example.demo.repository.ProductRepository;
@@ -14,7 +15,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;

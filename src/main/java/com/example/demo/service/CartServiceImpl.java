@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.auth.service.CurrentUserService;
 import com.example.demo.dto.CartDto;
 import com.example.demo.dto.CartItemDto;
 import com.example.demo.dto.CartItemUpdateRequest;
@@ -15,8 +16,6 @@ import com.example.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 public class CartServiceImpl implements CartService {

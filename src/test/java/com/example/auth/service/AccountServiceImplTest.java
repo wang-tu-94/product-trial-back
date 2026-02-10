@@ -1,11 +1,11 @@
-package com.example.demo.service;
+package com.example.auth.service;
 
-import com.example.demo.dto.AccountDto;
-import com.example.demo.dto.RegisterRequest;
+import com.example.auth.dto.AccountDto;
+import com.example.auth.dto.RegisterRequest;
 import com.example.demo.exception.BadRequestException;
-import com.example.demo.mapper.AccountMapper;
-import com.example.demo.model.Account;
-import com.example.demo.repository.AccountRepository;
+import com.example.auth.mapper.AccountMapper;
+import com.example.auth.model.Account;
+import com.example.auth.repository.AccountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

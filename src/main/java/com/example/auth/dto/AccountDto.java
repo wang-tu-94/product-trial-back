@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.auth.dto;
 
 public class AccountDto {
     private Long id;

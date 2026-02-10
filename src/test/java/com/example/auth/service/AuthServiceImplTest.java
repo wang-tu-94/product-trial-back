@@ -1,11 +1,11 @@
-package com.example.demo.service;
+package com.example.auth.service;
 
-import com.example.demo.config.JwtConfig;
-import com.example.demo.dto.JwtResponse;
-import com.example.demo.dto.LoginRequest;
+import com.example.auth.config.JwtConfig;
+import com.example.auth.dto.JwtResponse;
+import com.example.auth.dto.LoginRequest;
 import com.example.demo.exception.ForbiddenException;
-import com.example.demo.model.Account;
-import com.example.demo.repository.AccountRepository;
+import com.example.auth.model.Account;
+import com.example.auth.repository.AccountRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

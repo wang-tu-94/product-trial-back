@@ -1,12 +1,13 @@
 package com.example.demo.service;
 
+import com.example.auth.service.CurrentUserService;
 import com.example.demo.dto.CartDto;
 import com.example.demo.dto.CartItemDto;
 import com.example.demo.dto.CartItemUpdateRequest;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.mapper.CartItemMapper;
 import com.example.demo.mapper.CartMapper;
-import com.example.demo.model.Account;
+import com.example.auth.model.Account;
 import com.example.demo.model.Cart;
 import com.example.demo.model.CartItem;
 import com.example.demo.model.Product;

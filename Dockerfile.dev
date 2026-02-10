@@ -19,4 +19,4 @@ EXPOSE 5005
 
 # On utilise 'gradle bootRun' pour lancer l'app en mode dev
 # Le flag --continuous (optionnel) peut relancer si le code change
-CMD ["gradle", "bootRun", "--no-daemon"]
+CMD ["gradle", "bootRun", "--no-daemon", "-Pargs=-Dspring.profiles.active=integ"]

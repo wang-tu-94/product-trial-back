@@ -1,8 +1,8 @@
-package com.example.demo.controller;
+package com.example.auth.controller;
 
-import com.example.demo.dto.JwtResponse;
-import com.example.demo.dto.LoginRequest;
-import com.example.demo.service.AuthService;
+import com.example.auth.dto.JwtResponse;
+import com.example.auth.dto.LoginRequest;
+import com.example.auth.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

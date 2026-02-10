@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.auth.service.CurrentUserService;
 import com.example.demo.dto.WishListDto;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.mapper.WishListMapper;

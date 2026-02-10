@@ -32,7 +32,7 @@ services:
         condition: service_healthy # Attend que la DB soit prête
     environment:
       - SPRING_PROFILES_ACTIVE=integ
-      - DB_HOST=db:5432
+      - DB_HOST=db
       - DB_PORT=5432
       - DB_NAME=product_db
       - DB_USER=user

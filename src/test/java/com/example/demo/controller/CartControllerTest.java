@@ -1,8 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.config.JwtAuthenticationFilter;
-import com.example.demo.config.JwtConfig;
-import com.example.demo.config.SecurityConfig;
+import com.example.TestConfig;
+import com.example.auth.config.JwtConfig;
 import com.example.demo.dto.CartDto;
 import com.example.demo.dto.CartItemDto;
 import com.example.demo.dto.CartItemUpdateRequest;
@@ -13,10 +12,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -30,19 +29,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CartController.class)
-@Import({SecurityConfig.class, JwtAuthenticationFilter.class})
+@Import({TestConfig.class})
 @WithMockUser
 class CartControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     private CartService cartService;
 
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockBean
+    @MockitoBean
     private JwtConfig jwtConfig;
 
     private CartDto cartDto;

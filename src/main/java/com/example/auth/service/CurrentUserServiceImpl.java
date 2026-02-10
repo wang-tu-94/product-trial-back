@@ -1,8 +1,8 @@
-package com.example.demo.service;
+package com.example.auth.service;
 
 import com.example.demo.exception.NotFoundException;
-import com.example.demo.model.Account;
-import com.example.demo.repository.AccountRepository;
+import com.example.auth.model.Account;
+import com.example.auth.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

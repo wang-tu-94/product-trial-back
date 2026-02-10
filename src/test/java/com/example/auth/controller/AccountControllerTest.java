@@ -1,32 +1,27 @@
-package com.example.demo.controller;
+package com.example.auth.controller;
 
-import com.example.demo.config.JwtAuthenticationFilter;
-import com.example.demo.config.JwtConfig;
-import com.example.demo.config.SecurityConfig;
-import com.example.demo.dto.AccountDto;
-import com.example.demo.dto.RegisterRequest;
-import com.example.demo.model.Account;
-import com.example.demo.service.AccountService;
+import com.example.TestConfig;
+import com.example.auth.config.JwtConfig;
+import com.example.auth.repository.AccountRepository;
+import com.example.auth.dto.AccountDto;
+import com.example.auth.dto.RegisterRequest;
+import com.example.auth.service.AccountService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@Import({SecurityConfig.class, JwtAuthenticationFilter.class})
+@Import({TestConfig.class})
 @WebMvcTest(AccountController.class)
 class AccountControllerTest {
     @Autowired
@@ -35,10 +30,13 @@ class AccountControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockBean
+    @MockitoBean
     private AccountService accountService;
 
-    @MockBean
+    @MockitoBean
+    private AccountRepository accountRepository;
+
+    @MockitoBean
     private JwtConfig jwtConfig;
 
     private RegisterRequest request;
