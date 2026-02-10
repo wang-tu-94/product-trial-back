@@ -1,0 +1,22 @@
+# On utilise le JDK complet pour pouvoir compiler et tester
+FROM gradle:8.6-jdk21
+
+WORKDIR /app
+
+# On copie uniquement les fichiers de configuration Gradle pour le cache
+COPY build.gradle settings.gradle ./
+
+# On force le téléchargement des dépendances
+RUN gradle dependencies --no-daemon
+
+# On copie le reste du code source
+COPY . .
+
+# Port par défaut pour Spring Boot
+EXPOSE 8080
+# Port pour le debug à distance (très utile en dev)
+EXPOSE 5005
+
+# On utilise 'gradle bootRun' pour lancer l'app en mode dev
+# Le flag --continuous (optionnel) peut relancer si le code change
+CMD ["gradle", "bootRun", "--no-daemon"]
