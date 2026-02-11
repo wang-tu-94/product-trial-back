@@ -7,8 +7,6 @@ import com.example.demo.dto.CartItemUpdateRequest;
 public interface CartService {
     CartDto getCart();
 
-    CartDto createCart();
-
     CartDto addItemToCart(Long cartId, CartItemDto itemDto);
 
     CartDto updateItemQuantity(Long cartId,Long cartItemId, CartItemUpdateRequest request);

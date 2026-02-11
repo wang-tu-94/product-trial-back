@@ -22,6 +22,8 @@ public class CartItemDto {
 
     private Double total;
 
+    private ProductDto product;
+
     public Long getId() {
         return id;
     }
@@ -68,5 +70,13 @@ public class CartItemDto {
 
     public void setTotal(Double total) {
         this.total = total;
+    }
+
+    public ProductDto getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductDto product) {
+        this.product = product;
     }
 }

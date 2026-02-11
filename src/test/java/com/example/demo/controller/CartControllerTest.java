@@ -75,18 +75,6 @@ class CartControllerTest {
     }
 
     @Test
-
-    void testCreateCart() throws Exception {
-        when(cartService.createCart()).thenReturn(cartDto);
-
-        mockMvc.perform(post("/api/v1/carts"))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(1));
-
-        verify(cartService).createCart();
-    }
-
-    @Test
     void testAddItemToCart() throws Exception {
         when(cartService.addItemToCart(eq(1L), any(CartItemDto.class))).thenReturn(cartDto);
 

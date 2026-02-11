@@ -38,7 +38,6 @@ public class AccountServiceImpl implements AccountService {
         account.setUsername(request.getUsername());
         account.setEmail(request.getEmail());
         account.setPassword(passwordEncoder.encode(request.getPassword()));
-
         return accountMapper.toDto(accountRepository.save(account));
     }
 }

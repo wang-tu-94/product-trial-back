@@ -8,6 +8,7 @@ import com.example.demo.exception.NotFoundException;
 import com.example.demo.mapper.CartItemMapper;
 import com.example.demo.mapper.CartMapper;
 import com.example.auth.model.Account;
+import com.example.demo.mapper.ProductMapper;
 import com.example.demo.model.Cart;
 import com.example.demo.model.CartItem;
 import com.example.demo.model.Product;
@@ -40,6 +41,9 @@ class CartServiceImplTest {
 
     @Mock
     private CartItemMapper cartItemMapper;
+
+    @Mock
+    private ProductMapper productMapper;
 
     @Mock
     private CurrentUserService currentUserService;
@@ -99,9 +103,19 @@ class CartServiceImplTest {
     void testGetCartById_NotFound() {
         when(currentUserService.getCurrentUser()).thenReturn(account);
         when(cartRepository.findByUserId(1L)).thenReturn(Optional.empty());
+        when(cartRepository.save(any(Cart.class))).thenReturn(cart);
+        when(cartMapper.toDto(cart)).thenReturn(cartDto);
 
-        RuntimeException ex = assertThrows(NotFoundException.class, () -> cartService.getCart());
-        assertEquals("Cart not found", ex.getMessage());
+        CartDto result = cartService.getCart();
+
+        // THEN
+        assertNotNull(result);
+        assertEquals(1, result.getId());
+
+        // Vérifications des interactions
+        verify(cartRepository).findByUserId(1L);
+        verify(cartRepository).save(argThat(cart -> cart.getUserId().equals(1L)));
+        verify(cartMapper).toDto(cart);
     }
 
     @Test

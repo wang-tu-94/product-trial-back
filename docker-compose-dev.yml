@@ -40,6 +40,7 @@ services:
       - GRADLE_USER_HOME=/cache/.gradle
     volumes:
       - .:/app
+      - /app/build
       - gradle-cache:/cache/.gradle
 
 # --- Volumes pour la persistance ---

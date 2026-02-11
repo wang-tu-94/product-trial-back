@@ -22,12 +22,6 @@ public class CartController {
         return ResponseEntity.ok(cart);
     }
 
-    @PostMapping
-    public ResponseEntity<CartDto> createCart() {
-        CartDto cart = cartService.createCart();
-        return ResponseEntity.status(HttpStatus.CREATED).body(cart);
-    }
-
     @PostMapping("/{id}/items")
     public ResponseEntity<CartDto> addItemToCart(@PathVariable Long id, @Valid @RequestBody CartItemDto itemDto) {
         CartDto cart = cartService.addItemToCart(id, itemDto);

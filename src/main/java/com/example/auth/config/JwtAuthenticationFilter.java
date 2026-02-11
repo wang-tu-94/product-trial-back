@@ -61,9 +61,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             String subject = claims.getSubject();
             String tokenType = claims.get("type", String.class); // Récupération du claim personnalisé
-
             if (subject != null) {
-                if (tokenType.equals("SERVICE")) {
+                if ("SERVICE".equals(tokenType)) {
                     // Logique spécifique aux comptes de service : Check BDD obligatoire
                     Optional<ServiceAccount> serviceAccount = serviceAccountRepository.findByClientName(subject);
                     String signature = token.substring(token.lastIndexOf(".") + 1);

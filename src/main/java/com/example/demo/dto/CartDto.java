@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import com.example.demo.model.Product;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 

@@ -7,6 +7,7 @@ import com.example.demo.dto.CartItemUpdateRequest;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.mapper.CartItemMapper;
 import com.example.demo.mapper.CartMapper;
+import com.example.demo.mapper.ProductMapper;
 import com.example.demo.model.Cart;
 import com.example.demo.model.CartItem;
 import com.example.demo.model.Product;
@@ -16,6 +17,11 @@ import com.example.demo.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -36,30 +42,39 @@ public class CartServiceImpl implements CartService {
     private CartItemMapper cartItemMapper;
 
     @Autowired
+    private ProductMapper productMapper;
+
+    @Autowired
     private CurrentUserService currentUserService;
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public CartDto getCart() {
         Cart cart = cartRepository.findByUserId(currentUserService.getCurrentUser().getId())
-                .orElseThrow(() -> new NotFoundException("Cart not found"));
-        return cartMapper.toDto(cart);
+                .orElseGet(this::createCart);
+
+        CartDto dto = cartMapper.toDto(cart);
+
+        List<Long> productIds = dto.getItems().stream()
+                .map(CartItemDto::getProductId)
+                .distinct()
+                .toList();
+
+        Map<Long, Product> productMap = productRepository.findAllById(productIds).stream()
+                .collect(Collectors.toMap(Product::getId, p -> p));
+
+        dto.getItems().forEach(item ->
+                item.setProduct(productMapper.toDto(productMap.get(item.getProductId())))
+        );
+
+        return dto;
     }
 
-    @Override
-    @Transactional
-    public CartDto createCart() {
-        Long userId = currentUserService.getCurrentUser().getId();
-
-        cartRepository.findByUserId(userId)
-                .ifPresent(cart -> {
-                    throw new IllegalStateException("L'utilisateur possède déjà un panier.");
-                });
-
+    private Cart createCart() {
         Cart cart = new Cart();
         cart.setUserId(currentUserService.getCurrentUser().getId());
 
-        return cartMapper.toDto(cartRepository.save(cart));
+        return cartRepository.save(cart);
     }
 
     @Override
