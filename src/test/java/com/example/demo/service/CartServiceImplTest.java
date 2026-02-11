@@ -21,6 +21,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -77,6 +78,7 @@ class CartServiceImplTest {
 
         cartDto = new CartDto();
         cartDto.setId(1L);
+        cartDto.setItems(List.of());
 
         cartItemDto = new CartItemDto();
         cartItemDto.setProductId(1L);
