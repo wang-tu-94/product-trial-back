@@ -32,17 +32,17 @@ public class ProductController {
     }
 
     @PostMapping
-    ResponseEntity<ProductDto> createProduct(@RequestBody @Validated(Create.class) ProductDto productDto, Authentication authentication) {
+    ResponseEntity<ProductDto> createProduct(@RequestBody @Validated(Create.class) ProductDto productDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.createProduct(productDto));
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<ProductDto> updateProduct(@PathVariable Long id, @RequestBody @Validated(Update.class) ProductDto productDto, Authentication authentication) {
+    ResponseEntity<ProductDto> updateProduct(@PathVariable Long id, @RequestBody @Validated(Update.class) ProductDto productDto) {
         return ResponseEntity.ok(productService.updateProduct(id, productDto));
     }
 
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> deleteProduct(@PathVariable Long id, Authentication authentication) {
+    ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
