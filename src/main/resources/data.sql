@@ -34,4 +34,4 @@ INSERT INTO service_accounts (id, client_name, api_key_hashed, created_at, last_
     (1, 'service_account', '$2a$10$svTKVN3cniAgZNsxgvkgjebnqQggYzs655GGJ0HxyJBy/yq3KlLk.', '2024-06-11',  '2024-06-11', true);
 
 INSERT INTO accounts (id, username, email, password, created_at, updated_at) VALUES
-    (1, 'toto', 'toto@email.fr', '$2a$10$XSZz25ZjVOrN1MgViX.LGebx83KA/Oe2H6wX.6DayeJWDdC4Xkioi', '2024-06-11',  '2024-06-11');
+    (100000, 'toto', 'toto@email.fr', '$2a$10$XSZz25ZjVOrN1MgViX.LGebx83KA/Oe2H6wX.6DayeJWDdC4Xkioi', '2024-06-11',  '2024-06-11');

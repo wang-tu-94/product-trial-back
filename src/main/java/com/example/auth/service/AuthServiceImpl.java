@@ -3,6 +3,7 @@ package com.example.auth.service;
 import com.example.auth.config.JwtConfig;
 import com.example.auth.dto.JwtResponse;
 import com.example.auth.dto.LoginRequest;
+import com.example.auth.mapper.AccountMapper;
 import com.example.demo.exception.ForbiddenException;
 import com.example.auth.model.Account;
 import com.example.auth.repository.AccountRepository;
@@ -29,6 +30,9 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private JwtConfig jwtConfig;
 
+    @Autowired
+    private AccountMapper accountMapper;
+
     @Override
     public JwtResponse login(LoginRequest request) {
         Account account = accountRepository.findByEmail(request.getEmail())
@@ -47,6 +51,6 @@ public class AuthServiceImpl implements AuthService {
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
 
-        return new JwtResponse(token);
+        return new JwtResponse(token, accountMapper.toDto(account));
     }
 }

@@ -3,6 +3,7 @@ package com.example.auth.service;
 import com.example.auth.config.JwtConfig;
 import com.example.auth.dto.JwtResponse;
 import com.example.auth.dto.LoginRequest;
+import com.example.auth.mapper.AccountMapper;
 import com.example.demo.exception.ForbiddenException;
 import com.example.auth.model.Account;
 import com.example.auth.repository.AccountRepository;
@@ -29,6 +30,9 @@ class AuthServiceImplTest {
 
     @Mock
     private JwtConfig jwtConfig;
+
+    @Mock
+    private AccountMapper accountMapper;
 
     @InjectMocks
     private AuthServiceImpl authService;

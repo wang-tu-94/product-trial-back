@@ -17,7 +17,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/token")
+    @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(@Valid @RequestBody LoginRequest request) {
         JwtResponse token = authService.login(request);
         return ResponseEntity.ok(token);
