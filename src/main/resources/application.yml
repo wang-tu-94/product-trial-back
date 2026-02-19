@@ -15,3 +15,8 @@ spring:
 jwt:
   secret: ${JWT_SECRET}
   expiration-ms: ${JWT_EXPIRED_TIME}
+
+grpc:
+  client:
+    log-ingestor:
+      address: ${LOGS_SERVER_HOST}

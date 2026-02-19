@@ -7,6 +7,7 @@ import com.example.demo.mapper.ProductMapper;
 import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.repository.ProductSpecifications;
+import com.myproject.log.annotation.Loggable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -36,6 +37,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
+    @Loggable
     public Page<ProductDto> searchProducts(ProductFilter filter) {
         Specification<Product> spec = ProductSpecifications.buildSpecification(filter);
 

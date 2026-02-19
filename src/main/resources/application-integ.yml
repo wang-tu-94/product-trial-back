@@ -12,3 +12,8 @@ spring:
 jwt:
   secret: 8w9eK7sVh3FQ2mJ6lP0rXyZtN1bQ4uDkFvHsT2cW+Eo=
   expiration-ms: 3600000
+
+grpc:
+  client:
+    log-ingestor:
+      negotiation-type: plaintext

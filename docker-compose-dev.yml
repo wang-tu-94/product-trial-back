@@ -17,6 +17,8 @@ services:
       retries: 5
     volumes:
       - postgres_data:/var/lib/postgresql/data # Persistance des données
+    networks:
+      - logging-network
 
   # --- Backend Spring Boot (en mode Dev) ---
   backend:
@@ -37,13 +39,22 @@ services:
       - DB_NAME=product_db
       - DB_USER=user
       - DB_PASSWORD=password
-      - GRADLE_USER_HOME=/cache/.gradle
+      - GRADLE_USER_HOME=/app/.gradle-cache
+      - LOGS_SERVER_HOST=static://log-ingestor:50051
     volumes:
       - .:/app
       - /app/build
       - gradle-cache:/cache/.gradle
+      - ${HOST_M2_PATH}:/root/.m2:ro
+    networks:
+      - logging-network
 
 # --- Volumes pour la persistance ---
 volumes:
   postgres_data:
   gradle-cache:
+
+networks:
+  logging-network:
+    name: logging-network # Le nom doit être identique partout
+    driver: bridge
