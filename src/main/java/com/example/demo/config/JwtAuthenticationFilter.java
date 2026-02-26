@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 
 @Component
-public class JwtAutnetificationFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Value("${jwt.secret}")
     private String secret;
 

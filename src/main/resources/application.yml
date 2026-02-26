@@ -1,5 +1,5 @@
 servlet:
-  context-path: api/product-backend
+  context-path: /api/product-backend
 spring:
   application:
     name: demo
@@ -21,3 +21,13 @@ grpc:
   client:
     log-ingestor:
       address: ${LOGS_SERVER_HOST}
+
+logging:
+  level:
+    root: INFO
+    # Pour voir quel matcher (ou absence de matcher) cause la 403
+    org.springframework.security: TRACE
+    # Pour voir si la requête arrive bien au DispatcherServlet et sur quel chemin
+    org.springframework.web: DEBUG
+    # Pour voir les logs de ton propre filtre
+    com.myproject.ms.auth.config.JwtAuthenticationFilter: TRACE
