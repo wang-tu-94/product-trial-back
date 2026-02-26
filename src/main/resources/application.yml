@@ -1,5 +1,5 @@
 servlet:
-  context-path: /product-backend
+  context-path: api/product-backend
 spring:
   application:
     name: demo
@@ -15,8 +15,7 @@ spring:
       ddl-auto: update
 
 jwt:
-  secret: ${JWT_SECRET}
-  expiration-ms: ${JWT_EXPIRED_TIME}
+  secret: ${JWT_SECRET:8w9eK7sVh3FQ2mJ6lP0rXyZtN1bQ4uDkFvHsT2cW+Eo=}
 
 grpc:
   client:

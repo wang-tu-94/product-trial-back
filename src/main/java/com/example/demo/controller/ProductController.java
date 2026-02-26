@@ -16,7 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/products")
+@RequestMapping("v1/products")
 public class ProductController {
     @Autowired
     private ProductService productService;

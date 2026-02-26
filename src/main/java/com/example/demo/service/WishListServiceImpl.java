@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import com.example.auth.service.CurrentUserService;
 import com.example.demo.dto.WishListDto;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.mapper.WishListMapper;
@@ -29,7 +28,7 @@ public class WishListServiceImpl implements WishListService {
     @Override
     @Transactional(readOnly = true)
     public WishListDto getWishList() {
-        WishList wishlist = wishListRepository.findByUserId(currentUserService.getCurrentUser().getId())
+        WishList wishlist = wishListRepository.findByUserId(currentUserService.getCurrentUserId())
                 .orElseThrow(() -> new NotFoundException("WishList not found"));
         return wishListMapper.toDto(wishlist);
     }
@@ -38,7 +37,7 @@ public class WishListServiceImpl implements WishListService {
     @Override
     @Transactional
     public WishListDto createWishList() {
-        Long userId = currentUserService.getCurrentUser().getId();
+        Long userId = currentUserService.getCurrentUserId();
 
         wishListRepository.findByUserId(userId).ifPresent(w -> {
             throw new IllegalStateException("User already has a wishlist with id: " + w.getId());

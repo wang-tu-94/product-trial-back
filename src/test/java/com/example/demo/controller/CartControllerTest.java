@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.TestConfig;
-import com.example.auth.config.JwtConfig;
 import com.example.demo.dto.CartDto;
 import com.example.demo.dto.CartItemDto;
 import com.example.demo.dto.CartItemUpdateRequest;
@@ -41,9 +40,6 @@ class CartControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockitoBean
-    private JwtConfig jwtConfig;
-
     private CartDto cartDto;
 
     private CartItemDto cartItemDto;
@@ -65,7 +61,7 @@ class CartControllerTest {
     void testGetCart() throws Exception {
         when(cartService.getCart()).thenReturn(cartDto);
 
-        mockMvc.perform(get("/api/v1/carts"))
+        mockMvc.perform(get("/v1/carts"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.total").value(200.0))
@@ -78,7 +74,7 @@ class CartControllerTest {
     void testAddItemToCart() throws Exception {
         when(cartService.addItemToCart(eq(1L), any(CartItemDto.class))).thenReturn(cartDto);
 
-        mockMvc.perform(post("/api/v1/carts/1/items")
+        mockMvc.perform(post("/v1/carts/1/items")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(cartItemDto)))
                 .andExpect(status().isOk())
@@ -92,7 +88,7 @@ class CartControllerTest {
     void testRemoveItemFromCart() throws Exception {
         when(cartService.removeItemFromCart(1L, 1L)).thenReturn(cartDto);
 
-        mockMvc.perform(delete("/api/v1/carts/1/items/1"))
+        mockMvc.perform(delete("/v1/carts/1/items/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.items[0].productId").value(1));
 
@@ -107,7 +103,7 @@ class CartControllerTest {
 
         when(cartService.clearCart(1L)).thenReturn(emptyCart);
 
-        mockMvc.perform(delete("/api/v1/carts/1"))
+        mockMvc.perform(delete("/v1/carts/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.items").isEmpty())
                 .andExpect(jsonPath("$.total").value(0.0));
@@ -119,7 +115,7 @@ class CartControllerTest {
     void testGetCartNotFound() throws Exception {
         when(cartService.getCart()).thenThrow(new NotFoundException("Cart not found"));
 
-        mockMvc.perform(get("/api/v1/carts"))
+        mockMvc.perform(get("/v1/carts"))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").value("Cart not found"));
 
@@ -132,7 +128,7 @@ class CartControllerTest {
         invalidItem.setQuantity(0);
         invalidItem.setProductId(null);
 
-        mockMvc.perform(post("/api/v1/carts/1/items")
+        mockMvc.perform(post("/v1/carts/1/items")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(invalidItem)))
                 .andExpect(status().isBadRequest())
@@ -153,7 +149,7 @@ class CartControllerTest {
         when(cartService.updateItemQuantity(eq(cartId), eq(itemId), any(CartItemUpdateRequest.class)))
                 .thenReturn(cartDto);
 
-        mockMvc.perform(patch("/api/v1/carts/1/items/10")
+        mockMvc.perform(patch("/v1/carts/1/items/10")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
@@ -164,7 +160,7 @@ class CartControllerTest {
     void updateItemQuantity_InvalidQuantity_ShouldReturnBadRequest() throws Exception {
         CartItemUpdateRequest request = new CartItemUpdateRequest(-3);
 
-        mockMvc.perform(patch("/api/v1/carts/1/items/10")
+        mockMvc.perform(patch("/v1/carts/1/items/10")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isBadRequest());
@@ -180,7 +176,7 @@ class CartControllerTest {
         when(cartService.updateItemQuantity(eq(cartId), eq(itemId), any(CartItemUpdateRequest.class)))
                 .thenThrow(new NotFoundException("Cart item not found"));
 
-        mockMvc.perform(patch("/api/v1/carts/1/items/999")
+        mockMvc.perform(patch("/v1/carts/1/items/999")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNotFound());

@@ -1,6 +1,5 @@
 .gradle
 .gradle-cache
-build
 bin
 out
 .git

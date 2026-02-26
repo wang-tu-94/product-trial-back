@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.TestConfig;
-import com.example.auth.config.JwtConfig;
 import com.example.demo.dto.WishListDto;
 import com.example.demo.service.WishListService;
 import com.example.demo.exception.NotFoundException;
@@ -31,9 +30,6 @@ class WishListControllerTest {
     @MockitoBean
     private WishListService wishListService;
 
-    @MockitoBean
-    private JwtConfig jwtConfig;
-
     private WishListDto wishlistDto;
 
     @BeforeEach
@@ -47,7 +43,7 @@ class WishListControllerTest {
     void getWishList_success() throws Exception {
         when(wishListService.getWishList()).thenReturn(wishlistDto);
 
-        mockMvc.perform(get("/api/v1/wishlists"))
+        mockMvc.perform(get("/v1/wishlists"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.productIds").isArray());
@@ -57,7 +53,7 @@ class WishListControllerTest {
     void getWishList_notFound() throws Exception {
         when(wishListService.getWishList()).thenThrow(new NotFoundException("WishList not found"));
 
-        mockMvc.perform(get("/api/v1/wishlists"))
+        mockMvc.perform(get("/v1/wishlists"))
                 .andExpect(status().isNotFound());
     }
 
@@ -67,7 +63,7 @@ class WishListControllerTest {
     void createWishList_success() throws Exception {
         when(wishListService.createWishList()).thenReturn(wishlistDto);
 
-        mockMvc.perform(post("/api/v1/wishlists"))
+        mockMvc.perform(post("/v1/wishlists"))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(1));
     }
@@ -76,7 +72,7 @@ class WishListControllerTest {
     void addProductToWishList_success() throws Exception {
         when(wishListService.addProductToWishList(1L, 100L)).thenReturn(wishlistDto);
 
-        mockMvc.perform(post("/api/v1/wishlists/1/products/100"))
+        mockMvc.perform(post("/v1/wishlists/1/products/100"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.productIds").isArray());
@@ -86,7 +82,7 @@ class WishListControllerTest {
     void removeProductFromWishList_success() throws Exception {
         when(wishListService.removeProductFromWishList(1L, 100L)).thenReturn(wishlistDto);
 
-        mockMvc.perform(delete("/api/v1/wishlists/1/products/100"))
+        mockMvc.perform(delete("/v1/wishlists/1/products/100"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1));
     }
@@ -96,7 +92,7 @@ class WishListControllerTest {
         when(wishListService.addProductToWishList(anyLong(), anyLong()))
                 .thenThrow(new NotFoundException("WishList or Product not found"));
 
-        mockMvc.perform(post("/api/v1/wishlists/1/products/999"))
+        mockMvc.perform(post("/v1/wishlists/1/products/999"))
                 .andExpect(status().isNotFound());
     }
 
@@ -105,7 +101,7 @@ class WishListControllerTest {
         when(wishListService.removeProductFromWishList(anyLong(), anyLong()))
                 .thenThrow(new NotFoundException("WishList or Product not found"));
 
-        mockMvc.perform(delete("/api/v1/wishlists/1/products/999"))
+        mockMvc.perform(delete("/v1/wishlists/1/products/999"))
                 .andExpect(status().isNotFound());
     }
 }

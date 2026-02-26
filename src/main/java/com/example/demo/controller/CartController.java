@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/carts")
+@RequestMapping("v1/carts")
 public class CartController {
     @Autowired
     private CartService cartService;

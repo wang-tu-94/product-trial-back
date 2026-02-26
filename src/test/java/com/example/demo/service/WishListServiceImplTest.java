@@ -1,10 +1,8 @@
 package com.example.demo.service;
 
-import com.example.auth.service.CurrentUserService;
 import com.example.demo.dto.WishListDto;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.mapper.WishListMapper;
-import com.example.auth.model.Account;
 import com.example.demo.model.Product;
 import com.example.demo.model.WishList;
 import com.example.demo.repository.ProductRepository;
@@ -37,14 +35,10 @@ class WishListServiceImplTest {
     @InjectMocks
     private WishListServiceImpl wishlistService;
 
-    private Account account;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-
-        account = new Account();
-        account.setId(1L);
     }
 
     @Test
@@ -56,7 +50,7 @@ class WishListServiceImplTest {
         WishListDto dto = new WishListDto();
         dto.setId(1L);
 
-        when(currentUserService.getCurrentUser()).thenReturn(account);
+        when(currentUserService.getCurrentUserId()).thenReturn(1L);
         when(wishlistRepository.findByUserId(userId)).thenReturn(Optional.empty());
         when(wishlistRepository.save(any(WishList.class))).thenReturn(saved);
         when(wishlistMapper.toDto(saved)).thenReturn(dto);
@@ -75,7 +69,7 @@ class WishListServiceImplTest {
         existing.setId(1L);
         existing.setUserId(userId);
 
-        when(currentUserService.getCurrentUser()).thenReturn(account);
+        when(currentUserService.getCurrentUserId()).thenReturn(1L);
         when(wishlistRepository.findByUserId(userId)).thenReturn(Optional.of(existing));
 
         IllegalStateException ex = assertThrows(IllegalStateException.class,
@@ -93,7 +87,7 @@ class WishListServiceImplTest {
         WishListDto dto = new WishListDto();
         dto.setId(wishlistId);
 
-        when(currentUserService.getCurrentUser()).thenReturn(account);
+        when(currentUserService.getCurrentUserId()).thenReturn(1L);
         when(wishlistRepository.findByUserId(1L)).thenReturn(Optional.of(wishlist));
         when(wishlistMapper.toDto(wishlist)).thenReturn(dto);
 
@@ -104,7 +98,7 @@ class WishListServiceImplTest {
 
     @Test
     void getWishList_notFound() {
-        when(currentUserService.getCurrentUser()).thenReturn(account);
+        when(currentUserService.getCurrentUserId()).thenReturn(1L);
         when(wishlistRepository.findByUserId(1L)).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> wishlistService.getWishList());

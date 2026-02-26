@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.TestConfig;
-import com.example.auth.config.JwtConfig;
 import com.example.demo.dto.ProductDto;
 import com.example.demo.dto.ProductFilter;
 import com.example.demo.exception.NotFoundException;
@@ -41,9 +40,6 @@ class ProductControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockitoBean
-    private JwtConfig jwtConfig;
-
     private ProductDto productDto;
 
     @BeforeEach
@@ -65,7 +61,7 @@ class ProductControllerTest {
     void testGetProductById() throws Exception {
         when(productService.getProductById(1L)).thenReturn(productDto);
 
-        mockMvc.perform(get("/api/v1/products/1"))
+        mockMvc.perform(get("/v1/products/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.name").value("Laptop"));
@@ -79,7 +75,7 @@ class ProductControllerTest {
         Page<ProductDto> page = new PageImpl<>(List.of(productDto), PageRequest.of(0, 10), 1);
         when(productService.searchProducts(any(ProductFilter.class))).thenReturn(page);
 
-        mockMvc.perform(get("/api/v1/products")
+        mockMvc.perform(get("/v1/products")
                         .param("page", "0")
                         .param("size", "10")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -96,7 +92,7 @@ class ProductControllerTest {
     void testCreateProduct() throws Exception {
         when(productService.createProduct(any(ProductDto.class))).thenReturn(productDto);
 
-        mockMvc.perform(post("/api/v1/products")
+        mockMvc.perform(post("/v1/products")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(productDto)))
                 .andExpect(status().isCreated())
@@ -111,7 +107,7 @@ class ProductControllerTest {
     void testUpdateProduct() throws Exception {
         when(productService.updateProduct(eq(1L), any(ProductDto.class))).thenReturn(productDto);
 
-        mockMvc.perform(put("/api/v1/products/1")
+        mockMvc.perform(put("/v1/products/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(productDto)))
                 .andExpect(status().isOk())
@@ -126,7 +122,7 @@ class ProductControllerTest {
     void testDeleteProduct() throws Exception {
         doNothing().when(productService).deleteProduct(1L);
 
-        mockMvc.perform(delete("/api/v1/products/1"))
+        mockMvc.perform(delete("/v1/products/1"))
                 .andExpect(status().isNoContent());
 
         verify(productService).deleteProduct(1L);
@@ -138,7 +134,7 @@ class ProductControllerTest {
         when(productService.getProductById(999L))
                 .thenThrow(new NotFoundException("Product not found"));
 
-        mockMvc.perform(get("/api/v1/products/999"))
+        mockMvc.perform(get("/v1/products/999"))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.status").value(404))
                 .andExpect(jsonPath("$.message").value("Product not found"));
@@ -152,7 +148,7 @@ class ProductControllerTest {
         ProductDto invalidDTO = new ProductDto();
         invalidDTO.setPrice(-10.0);
 
-        mockMvc.perform(post("/api/v1/products")
+        mockMvc.perform(post("/v1/products")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(invalidDTO)))
                 .andExpect(status().isBadRequest())

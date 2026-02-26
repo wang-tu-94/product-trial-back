@@ -9,7 +9,6 @@ import com.example.demo.repository.ProductRepository;
 import com.example.demo.repository.ProductSpecifications;
 import com.myproject.log.annotation.Loggable;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

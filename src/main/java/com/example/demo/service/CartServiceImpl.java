@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import com.example.auth.service.CurrentUserService;
 import com.example.demo.dto.CartDto;
 import com.example.demo.dto.CartItemDto;
 import com.example.demo.dto.CartItemUpdateRequest;
@@ -50,7 +49,7 @@ public class CartServiceImpl implements CartService {
     @Override
     @Transactional
     public CartDto getCart() {
-        Cart cart = cartRepository.findByUserId(currentUserService.getCurrentUser().getId())
+        Cart cart = cartRepository.findByUserId(currentUserService.getCurrentUserId())
                 .orElseGet(this::createCart);
 
         CartDto dto = cartMapper.toDto(cart);
@@ -72,7 +71,7 @@ public class CartServiceImpl implements CartService {
 
     private Cart createCart() {
         Cart cart = new Cart();
-        cart.setUserId(currentUserService.getCurrentUser().getId());
+        cart.setUserId(currentUserService.getCurrentUserId());
 
         return cartRepository.save(cart);
     }

@@ -1,13 +1,11 @@
 package com.example.demo.service;
 
-import com.example.auth.service.CurrentUserService;
 import com.example.demo.dto.CartDto;
 import com.example.demo.dto.CartItemDto;
 import com.example.demo.dto.CartItemUpdateRequest;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.mapper.CartItemMapper;
 import com.example.demo.mapper.CartMapper;
-import com.example.auth.model.Account;
 import com.example.demo.mapper.ProductMapper;
 import com.example.demo.model.Cart;
 import com.example.demo.model.CartItem;
@@ -57,7 +55,6 @@ class CartServiceImplTest {
     private CartItem cartItem;
     private CartDto cartDto;
     private CartItemDto cartItemDto;
-    private Account account;
 
     @BeforeEach
     void setUp() {
@@ -83,14 +80,11 @@ class CartServiceImplTest {
         cartItemDto = new CartItemDto();
         cartItemDto.setProductId(1L);
         cartItemDto.setQuantity(2);
-
-        account = new Account();
-        account.setId(1L);
     }
 
     @Test
     void testGetCartById_Success() {
-        when(currentUserService.getCurrentUser()).thenReturn(account);
+        when(currentUserService.getCurrentUserId()).thenReturn(1L);
         when(cartRepository.findByUserId(1L)).thenReturn(Optional.of(cart));
         when(cartMapper.toDto(cart)).thenReturn(cartDto);
 
@@ -103,7 +97,7 @@ class CartServiceImplTest {
 
     @Test
     void testGetCartById_NotFound() {
-        when(currentUserService.getCurrentUser()).thenReturn(account);
+        when(currentUserService.getCurrentUserId()).thenReturn(1L);
         when(cartRepository.findByUserId(1L)).thenReturn(Optional.empty());
         when(cartRepository.save(any(Cart.class))).thenReturn(cart);
         when(cartMapper.toDto(cart)).thenReturn(cartDto);
