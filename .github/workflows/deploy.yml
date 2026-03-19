@@ -1,4 +1,4 @@
-name: Deploy product-backend
+name: Deploy ms.products
 on:
   push:
     branches: [ master ]
@@ -35,4 +35,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: magnomos/product-backend:latest
+          tags: magnomos/ms.products:latest

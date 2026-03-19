@@ -1,12 +1,12 @@
 server:
   port: 8080
   servlet:
-    context-path: /api/product-backend
+    context-path: /api/ms-products
 spring:
   application:
-    name: demo
+    name: ms.products
   datasource:
-    url: jdbc:postgresql://${DB_HOST:db}:${DB_PORT:5432}/${DB_NAME:product_db}
+    url: jdbc:postgresql://${DB_HOST:db}:${DB_PORT:5432}/${DB_NAME:ms_products}
     username: ${DB_USER}
     password: ${DB_PASSWORD}
   sql:
